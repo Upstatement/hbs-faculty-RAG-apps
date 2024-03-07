@@ -1,0 +1,82 @@
+.App {
+  text-align: center;
+  height: 100vh; /* Full height of the viewport */
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: space-between; /* Distribute space between and around content items */
+  align-items: center;
+  background-color: #282c34;
+  padding: 20px; /* Add some padding around */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.App-header {
+  width: 90%;
+  max-width: 600px;
+  flex-grow: 1; /* Allow the header to grow and fill available space, pushing the form to the bottom */
+  display: flex;
+  flex-direction: column; /* Stack children of header vertically */
+  justify-content: space-between; /* Distribute space */
+  color: white;
+}
+
+.chat-box {
+  flex-grow: 1; /* Allows the chat box to grow and fill available space, but not shrink */
+  max-width: 600px; /* Matches the maximum width of the form and header for consistency */
+  overflow-y: auto; /* Enables vertical scrolling for overflow content */
+  padding: 10px; /* Padding inside the chat box for spacing around messages */
+  background-color: #fff; /* White background for the chat area */
+  border-radius: 2px; /* Rounded corners for the chat box */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  display: flex; /* Establishes a flex container */
+  flex-direction: column; /* Stacks messages vertically */
+  gap: 10px; /* Space between messages */
+}
+
+.message {
+  background: #af0000;
+  color: #fff;
+  padding: 10px;
+  border-radius: 20px;
+  display: inline-block;
+  max-width: 80%;
+  text-align: left;
+  white-space: pre-wrap; /* Preserve whitespace and wrap text */
+}
+
+.message.user {
+  background: #5e5e5e;
+  align-self: flex-end;
+}
+
+form {
+  width: 100%;
+  max-width: 600px; /* Match the chat box width */
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Adjust based on your design preference */
+  padding: 10px 0; /* Add some padding at the top and bottom */
+  margin-bottom:20px;
+}
+
+input[type="text"] {
+  flex-grow: 1; /* Allow input to take up available space */
+  padding: 10px;
+  border-radius: 2px; /* Rounded corners for the input field */
+  border: 1px solid #ccc; /* Light gray border */
+  outline: none; /* Remove focus outline */
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 2px; /* Rounded corners for the button */
+  border: none;
+  background-color: #5e5e5e; /* Example: Bright blue background */
+  color: white; /* White text */
+  cursor: pointer;
+  outline: none; /* Remove focus outline */
+}
+
+button:hover {
+  background-color: #3e3e3e; /* Darker blue on hover */
+}
