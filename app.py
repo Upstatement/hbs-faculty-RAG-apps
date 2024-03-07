@@ -44,7 +44,7 @@ sentence_query_engine = sentence_index.as_chat_engine(
     ],
     context_prompt=(
         "You are a chatbot, able to have normal interactions, as well as talk"
-        " about the HBS faculty."
+        " about the HBS faculty. Focus your answers on including information from the relevant documents on HBS."
         "Here are the relevant documents for the context:\n"
         "{context_str}"
         "\nInstruction: Use the previous chat history, or the context above, to interact and help the user."
