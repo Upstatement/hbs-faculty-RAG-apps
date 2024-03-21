@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -7,11 +11,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body ol {
+  @apply list-decimal pl-4 ml-4 !important;
+}
+p {
+  margin: 1rem 0 !important; /* Adjust the margin values as needed */
+}
+
+a {
+  color: #007bff; /* Example blue color for links */
+  text-decoration: underline; /* Underline is a common convention for links */
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-a{
-  color:#ffff00;
 }

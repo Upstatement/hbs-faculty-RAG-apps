@@ -1,17 +1,26 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
+import { marked } from "marked";
+import DOMPurify from "dompurify";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const [query, setQuery] = useState("");
   const [messages, setMessages] = useState([]);
   const chatEndRef = useRef(null); // Create a ref for the end of the chat
 
+  const initializeNewSession = async () => {
+    if (!sessionStorage.getItem("uniqueID")) {
+      sessionStorage.setItem("uniqueID", uuidv4());
+    }
+  };
+
   const handleInputChange = (event) => {
     setQuery(event.target.value);
   };
 
   useEffect(() => {
-    // Add bot's intro message when the component mounts
+    initializeNewSession();
     setMessages([
       {
         text: "Hello! I can answer your questions about the HBS Faculty.",
@@ -41,6 +50,7 @@ function App() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          uniqueID: sessionStorage.getItem("uniqueID"),
         },
         body: JSON.stringify({ question: sendQuery }),
       });
@@ -61,11 +71,15 @@ function App() {
         <h1>HBS Faculty Directory Chat</h1>
         <div className="chat-box">
           {messages.map((msg, index) => (
-            <div key={index} className={`message ${msg.sender}`}>
-              {msg.text}
-            </div>
+            <div
+              key={index}
+              className={`message ${msg.sender}`}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(marked.parse(msg.text)), // Correct use of marked.parse
+              }}
+            ></div>
           ))}
-          <div ref={chatEndRef} />{" "}
+          <div ref={chatEndRef} />
         </div>
         <form onSubmit={handleSubmit}>
           <input

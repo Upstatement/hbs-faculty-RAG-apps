@@ -10,6 +10,11 @@
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
+body{
+  background-color: #282c34;
+
+}
+
 .App-header {
   width: 90%;
   max-width: 600px;
@@ -33,15 +38,17 @@
   gap: 10px; /* Space between messages */
 }
 
+
+
 .message {
   background: #af0000;
   color: #fff;
-  padding: 10px;
   border-radius: 20px;
   display: inline-block;
   max-width: 80%;
   text-align: left;
-  white-space: pre-wrap; /* Preserve whitespace and wrap text */
+  padding-left:10px;
+  padding-right:10px;
 }
 
 .message.user {
