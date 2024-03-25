@@ -1,6 +1,4 @@
-from flask import Flask, request, jsonify, session
-
-
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
@@ -17,17 +15,10 @@ import json
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
-# Configure Flask Sessions (Client-Side for this example)
-# app.secret_key = "afjlkajflkdj"  # Change to your secret key
-# Uncomment below if using Flask-Session for server-side session management
-# app.config["SESSION_TYPE"] = "filesystem"
-# Session(app)
-
 # Load environment variables
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Persistent components that don't need to be session-specific
 llm = OpenAI(model="gpt-3.5-turbo-0125")
 db = chromadb.PersistentClient(path="./chroma_db")
 embed_model = OpenAIEmbedding(model="text-embedding-3-small", embed_batch_size=50)
@@ -40,7 +31,6 @@ sentence_index = VectorStoreIndex.from_vector_store(
 )
 
 # Store session-specific ChatMemoryBuffers in server memory
-# Consider a more scalable storage solution for production use
 chat_memories = {}
 
 
