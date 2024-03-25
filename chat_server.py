@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify, send_from_directory
+# run this server if you're running the chat app
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
@@ -12,9 +13,7 @@ from llama_index.core.postprocessor import MetadataReplacementPostProcessor
 import chromadb
 import json
 
-app = Flask(
-    __name__, static_folder="user-query-form/build", static_url_path=""
-)  # Updated
+app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
 # Load environment variables
@@ -116,15 +115,6 @@ def follow_up_questions():
     parsed_content = json.loads(follow_ups.content)
 
     return jsonify({"questions": parsed_content["data"]})
-
-
-@app.route("/", defaults={"path": ""})  # Updated
-@app.route("/<path:path>")  # Updated
-def serve(path):
-    if path != "" and os.path.exists(app.static_folder + "/" + path):
-        return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, "index.html")
 
 
 if __name__ == "__main__":
