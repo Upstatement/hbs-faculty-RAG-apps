@@ -14,7 +14,9 @@ Install git-lfs, which is used to store the vector DB. Then clone this repo.
 
 Make a copy of `.env-example` to `.env` and add your OpenAI key.
 
-Start a virtual environment with `venv` and install with pip `pip3 install -r requirements.txt`.
+Start a virtual environment with `venv`, running `python -m venv venv` and then start it with `source venv/bin/activate`.
+
+install dependencies `pip install -r requirements.txt`
 
 In each of the prototype directories `user-query-form` and `chat-app`, install the respective app with `npm install`.
 
