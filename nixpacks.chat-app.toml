@@ -1,0 +1,8 @@
+providers = ["node", "python"]
+
+[phases.build]
+cmds = [
+    "npm install --prefix=chat-app",
+    "npm run build --prefix=chat-app",
+    "...",
+]

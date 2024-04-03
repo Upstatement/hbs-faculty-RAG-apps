@@ -1,0 +1,9 @@
+{
+  "build": {
+    "builder": "NIXPACKS",
+    "nixpacksConfigPath": "nixpacks.chat-app.toml"
+  },
+  "deploy": {
+    "startCommand": "gunicorn chat_server:app"
+  }
+}

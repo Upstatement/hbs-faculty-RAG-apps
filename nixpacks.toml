@@ -1,0 +1,8 @@
+providers = ["node", "python"]
+
+[phases.build]
+cmds = [
+    "npm install --prefix=user-query-form",
+    "npm run build --prefix=user-query-form",
+    "...",
+]

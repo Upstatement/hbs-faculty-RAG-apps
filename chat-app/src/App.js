@@ -4,6 +4,8 @@ import { marked } from "marked";
 import DOMPurify from "dompurify";
 import { v4 as uuidv4 } from "uuid";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+
 function App() {
   const [query, setQuery] = useState("");
   const [messages, setMessages] = useState([]);
@@ -46,7 +48,7 @@ function App() {
     setQuery(""); // Clear input after submit
     setMessages((msgs) => [...msgs, { text: sendQuery, sender: "user" }]);
     try {
-      const res = await fetch("http://localhost:5000/chat", {
+      const res = await fetch(`${API_BASE_URL}/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

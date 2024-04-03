@@ -4,3 +4,4 @@ openai
 llama_index 
 chromadb
 llama-index-vector-stores-chroma
+gunicorn

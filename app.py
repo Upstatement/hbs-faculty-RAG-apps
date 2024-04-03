@@ -22,7 +22,10 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 llm = OpenAI(model="gpt-3.5-turbo-0125")
-db = chromadb.PersistentClient(path="./chroma_db")
+if os.getenv("CHROMA_DB_HOST"):
+    db = chromadb.HttpClient(host=os.getenv("CHROMA_DB_HOST"), port=os.getenv("CHROMA_DB_PORT"))
+else:
+    db = chromadb.PersistentClient(path="./chroma_db")
 embed_model = OpenAIEmbedding(model="text-embedding-3-small", embed_batch_size=50)
 sentence_window_collection = db.get_or_create_collection("sentence_window")
 sentence_window_vector_store = ChromaVectorStore(
