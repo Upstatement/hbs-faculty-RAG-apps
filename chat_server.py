@@ -1,5 +1,5 @@
 # run this server if you're running the chat app
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
@@ -13,7 +13,7 @@ from llama_index.core.postprocessor import MetadataReplacementPostProcessor
 import chromadb
 import json
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="chat-app/build", static_url_path="")
 CORS(app, supports_credentials=True)
 
 # Load environment variables
@@ -21,7 +21,10 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 llm = OpenAI(model="gpt-3.5-turbo-0125")
-db = chromadb.PersistentClient(path="./chroma_db")
+if os.getenv("CHROMA_DB_HOST"):
+    db = chromadb.HttpClient(host=os.getenv("CHROMA_DB_HOST"), port=os.getenv("CHROMA_DB_PORT"))
+else:
+    db = chromadb.PersistentClient(path="./chroma_db")
 embed_model = OpenAIEmbedding(model="text-embedding-3-small", embed_batch_size=50)
 sentence_window_collection = db.get_or_create_collection("sentence_window")
 sentence_window_vector_store = ChromaVectorStore(
@@ -115,6 +118,14 @@ def follow_up_questions():
     parsed_content = json.loads(follow_ups.content)
 
     return jsonify({"questions": parsed_content["data"]})
+
+@app.route("/", defaults={"path": ""})  # Updated
+@app.route("/<path:path>")  # Updated
+def serve(path):
+    if path != "" and os.path.exists(app.static_folder + "/" + path):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, "index.html")
 
 
 if __name__ == "__main__":

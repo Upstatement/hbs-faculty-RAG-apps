@@ -4,6 +4,8 @@ import { marked } from "marked";
 import DOMPurify from "dompurify";
 import { v4 as uuidv4 } from "uuid";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+
 function App() {
   const [userType, setUserType] = useState("Professional");
   const [queryType, setQueryType] = useState("advice");
@@ -39,7 +41,7 @@ function App() {
       const uniqueID = sessionStorage.getItem("uniqueID");
 
       const res = await axios.post(
-        "http://localhost:5000/chat",
+        `${API_BASE_URL}/chat`,
         {
           question: query,
         },
@@ -65,7 +67,7 @@ function App() {
     const uniqueID = sessionStorage.getItem("uniqueID");
     try {
       const res = await axios.post(
-        "http://localhost:5000/follow-up-questions",
+        `${API_BASE_URL}/follow-up-questions`,
         {},
         {
           headers: {
@@ -91,7 +93,7 @@ function App() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/chat",
+        `${API_BASE_URL}/chat`,
         {
           question: refinement,
         },

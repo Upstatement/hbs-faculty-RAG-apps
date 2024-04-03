@@ -24,4 +24,4 @@ In each of the prototype directories `user-query-form` and `chat-app`, install t
 
 Navigate to the frontend app in `user-query-form/` and run `npm run build`. Start the server with `python3 app.py`
 
-If instead you are running the chat app, run `python3 chat_server.py` and then from `chat-app/` start the app with `npm start`
+If instead you are running the chat app, navigate to `chat-app/` and `npm run build`, then start the server with `python3 chat_server.py`.
