@@ -24,7 +24,14 @@ llm = OpenAI(model="gpt-3.5-turbo-0125")
 if os.getenv("CHROMA_DB_HOST"):
     host = os.getenv("CHROMA_DB_HOST")
     port = int(os.getenv("CHROMA_DB_PORT", "8000"))
-    db = chromadb.HttpClient(host=host, port=port)
+    db = chromadb.HttpClient(chromadb.Settings(
+        anonymized_telemetry=False,
+        chroma_api_impl="rest",
+        chroma_server_host=host,
+        chroma_server_ssl_enabled=True,
+        chroma_server_http_port=443,
+        # chroma_db_impl="duckdb+parquet"
+    ))
 else:
     db = chromadb.PersistentClient(path="./chroma_db")
 embed_model = OpenAIEmbedding(model="text-embedding-3-small", embed_batch_size=50)
