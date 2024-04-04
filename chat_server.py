@@ -22,6 +22,8 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 llm = OpenAI(model="gpt-3.5-turbo-0125")
 if os.getenv("CHROMA_DB_HOST"):
+    print(os.getenv("CHROMA_DB_HOST"), type(os.getenv("CHROMA_DB_HOST")))
+    print(os.getenv("CHROMA_DB_PORT"), type(os.getenv("CHROMA_DB_PORT")))
     db = chromadb.HttpClient(host=os.getenv("CHROMA_DB_HOST"), port=os.getenv("CHROMA_DB_PORT"))
 else:
     db = chromadb.PersistentClient(path="./chroma_db")
